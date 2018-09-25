@@ -6,5 +6,3 @@ https://medium.com/@jessekorzan/voice-ui-visualizer-in-pure-css-bb2ddbcd5567
 
 ## Demos:
 https://voice-visualizer-001.netlify.com/ & https://voice-visualizer-002.netlify.com/
-
-![demo gif](https://cdn-images-1.medium.com/max/800/1*XXDEfyQxx_p3eKibMpmcKA.gif)
