@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:700');
 
 $font : "Roboto", sans-serif;
-
 $black: #201c26;
 $white: #ffffff;
-
 $spacer: 44px;
+
+// VOICE UI visualization prototype
+// copyright 2017 jesse korzan 
+//
+// skip to the essential parts class="voice-coder"
 
 html {
   box-sizing: border-box;
@@ -13,7 +16,6 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
-
 body {
     background: darken($black, 5%);
     color: $white;
@@ -62,6 +64,9 @@ section {
     }
 }
 
+// ESSENTIAL PARTS
+// the main wrapper for the visualization
+
 .voice-coder {
     position: relative;
     height: 65%;
@@ -72,6 +77,8 @@ section {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    
+    // the color bars
     span {
         position: relative;
         z-index: 2;
@@ -82,11 +89,14 @@ section {
         animation-iteration-count: infinite;
         animation-timing-function: ease-in;
         animation-duration: 900ms;
+        
+        // stagger the animations
         @for $b from 1 through 45 {
             &:nth-child(#{$b}) {
                 animation-delay: #{(($b) * (50))}ms;
             }
         }
+        // change up the animations
         &:nth-child(2n) {
             animation-name: bounce-002;
             animation-timing-function: ease-out;
@@ -96,6 +106,7 @@ section {
             animation-timing-function: linear;
         }
     }
+    // make it more "digital" looking
     &:after {
         position: absolute;
         z-index: 3;
@@ -107,19 +118,9 @@ section {
         opacity: 0.25;
         background: url("overlay.png") no-repeat 50% 50%;
     }
-    &:before {
-        position: absolute;
-        //content: "";
-        top: 20%;
-        left: -15%;
-        right: -15%;
-        bottom: 20%;
-        background: radial-gradient(lime, cyan, purple, $black 55%);
-        transform: scale(0.5);
-        opacity: 0.2;
-    }
 }
 
+// CSS animations for the <span/> color bars
 @keyframes bounce-001 {
     0% {
         height: 100%;
@@ -153,4 +154,3 @@ section {
         height: 80%;
     }
 }
-

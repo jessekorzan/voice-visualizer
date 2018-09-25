@@ -9,6 +9,7 @@
             <section>
                 <h1><span  id="timerMins">00</span>:<span  id="timerSeconds">00</span>:<span  id="timerTens">00</span></h1>
                 <div class="voice-coder">
+                    <!-- 45 spans inside the main .voice-coder wrapper -->
                     <span></span>
                     <span></span>
                     <span></span>
@@ -60,6 +61,10 @@
             </section>
         </main>
         <script>
+            
+            // simple JS I re-purposed from some place on Stackoverflow
+            // not essential for the CSS POC
+            
             var interval = setInterval(timerFunc, 10),
                 mins = 00,
                 seconds = 00,
@@ -99,9 +104,6 @@
                     minsEl.innerHTML = "0" + mins;
                 }
             }
-
-
-
         </script>
     </body>
 </html>
