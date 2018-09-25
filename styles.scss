@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:700');
+
+$font : "Roboto", sans-serif;
+
+$black: #201c26;
+$white: #ffffff;
+
+$spacer: 44px;
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+    background: darken($black, 5%);
+    color: $white;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+main {
+    position: relative;
+    width: 800px;
+    margin: 0 auto;
+    display: grid;
+    align-items: center ;
+    height: 100vh;
+    section {
+        position: relative;
+        background: $black;
+        padding: $spacer;
+        white-space: 100%;
+        height: 600px;
+        width: 800px;
+    }
+}
+
+section {
+    text-align: center;
+    h1 {
+        font-size: 68px;
+        margin: $spacer 0 $spacer;
+        font-family: $font;
+        font-weight: 700;
+        color: lighten(lime, 65%);
+        text-shadow: 0px 0px 72px rgba(lime, 0.65);
+        span {
+            margin: 0 8px;
+        }
+    }
+    p {
+        font-size: 12px;
+        text-transform: uppercase;
+        a {
+            color: $white;
+            text-decoration: none;
+            opacity: 0.1;
+        }
+    }
+}
+
+.voice-coder {
+    position: relative;
+    height: 65%;
+    display: grid;
+    grid-template-columns: repeat(45, 4px);
+    grid-template-rows: 100%;
+    grid-gap: 14px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    span {
+        position: relative;
+        z-index: 2;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient( darken($black, 0%) 5%, purple, cyan, lime, cyan, purple, darken($black, 0%) 85%);
+        animation: bounce-001;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in;
+        animation-duration: 900ms;
+        @for $b from 1 through 45 {
+            &:nth-child(#{$b}) {
+                animation-delay: #{(($b) * (50))}ms;
+            }
+        }
+        &:nth-child(2n) {
+            animation-name: bounce-002;
+            animation-timing-function: ease-out;
+        }
+        &:nth-child(3n) {
+            animation-name: bounce-003;
+            animation-timing-function: linear;
+        }
+    }
+    &:after {
+        position: absolute;
+        z-index: 3;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.25;
+        background: url("overlay.png") no-repeat 50% 50%;
+    }
+    &:before {
+        position: absolute;
+        //content: "";
+        top: 20%;
+        left: -15%;
+        right: -15%;
+        bottom: 20%;
+        background: radial-gradient(lime, cyan, purple, $black 55%);
+        transform: scale(0.5);
+        opacity: 0.2;
+    }
+}
+
+@keyframes bounce-001 {
+    0% {
+        height: 100%;
+    }
+    50% {
+        height: 50%;
+    }
+    100% {
+        height: 100%;
+    }
+}
+@keyframes bounce-002 {
+    0% {
+        height: 100%;
+    }
+    80% {
+        height: 30%;
+    }
+    100% {
+        height: 100%;
+    }
+}
+@keyframes bounce-003 {
+    0% {
+        height: 80%;
+    }
+    30% {
+        height: 20%;
+    }
+    100% {
+        height: 80%;
+    }
+}
+

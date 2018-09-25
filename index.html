@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>Voice Coder</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css"/>
+    </head>
+    <body>
+        <main>
+            <section>
+                <h1><span  id="timerMins">00</span>:<span  id="timerSeconds">00</span>:<span  id="timerTens">00</span></h1>
+                <div class="voice-coder">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    
+                </div>
+                <p><a href="https://dribbble.com/jessekorzan">@jessekorzan</a></p>
+            </section>
+        </main>
+        <script>
+            var interval = setInterval(timerFunc, 10),
+                mins = 00,
+                seconds = 00,
+                tens = 00,
+                tensEl = document.getElementById("timerTens"),
+                secondsEl = document.getElementById("timerSeconds"),
+                minsEl = document.getElementById("timerMins");
+            
+            function timerFunc() {
+                console.log("hi");
+                tens++;
+                if (tens < 9) {
+                    tensEl.innerHTML = "0" + tens;
+                }       
+                if (tens > 9) {
+                    tensEl.innerHTML = tens;
+                } 
+                if (tens > 99) {
+                    seconds++;
+                    secondsEl.innerHTML = "0" + seconds;
+                    tens = 0;
+                    tensEl.innerHTML = "0" + 0;
+                }
+                if (seconds < 9) {
+                    secondsEl.innerHTML = "0" + seconds;
+                }
+                if (seconds > 9) {
+                    secondsEl.innerHTML = seconds;
+                }
+                if (seconds > 59) {
+                    secondsEl.innerHTML = 00;
+                    seconds = 00;
+                    mins++;
+                    minsEl.innerHTML = mins;
+                }
+                if (mins < 9) {
+                    minsEl.innerHTML = "0" + mins;
+                }
+            }
+
+
+
+        </script>
+    </body>
+</html>
