@@ -11,4 +11,4 @@ https://voice-visualizer-001.netlify.com/
 https://voice-visualizer-002.netlify.com/
 
 
-![demo](https://cl.ly/351c566495c7/example.gif)
+![demo](https://github.com/jessekorzan/voice-visualizer/blob/master/example.gif)
