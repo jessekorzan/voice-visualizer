@@ -20,7 +20,8 @@ main {
   margin: 0 auto;
   display: grid;
   align-items: center;
-  height: 100vh; }
+  height: 100vh;
+  max-height: 100%; }
   main section {
     position: relative;
     background: #201c26;
@@ -29,18 +30,72 @@ main {
     height: 600px;
     max-width: 800px;
     overflow: hidden; }
+    @media screen and (min-width: 1021px) {
+      main section {
+        box-shadow: 0px 20px 85px 6px rgba(0, 0, 0, 0.25); } }
+
+button {
+  position: absolute;
+  z-index: 999;
+  left: calc(50% - 66px);
+  bottom: 66px;
+  background: crimson;
+  border: none;
+  width: 132px;
+  height: 132px;
+  border-radius: 100%;
+  color: #ffffff;
+  font-size: 11px;
+  text-transform: uppercase;
+  outline: none;
+  transition: all 160ms ease-in-out;
+  cursor: pointer;
+  box-shadow: 0px 0px 65px 16px rgba(12, 11, 15, 0.5); }
+  button:after {
+    content: "Speak"; }
+  button:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 2px solid crimson;
+    border-radius: 100%;
+    transition: all 160ms ease-in-out; }
+  button:hover:before {
+    transform: scale(1.15); }
 
 section {
   text-align: center; }
-  section h1 {
+  section h1, section h2 {
     font-size: 68px;
     margin: 44px 0 44px;
     font-family: "Roboto", sans-serif;
     font-weight: 700;
     color: white;
     text-shadow: 0px 0px 72px rgba(0, 255, 0, 0.65); }
-    section h1 span {
+    section h1 span, section h2 span {
       margin: 0 8px; }
+  section h1 {
+    font-size: 18px;
+    margin-bottom: 22px;
+    color: #514761;
+    text-shadow: none;
+    text-transform: uppercase; }
+    section h1 b {
+      color: #c51236; }
+  section h2 {
+    font-size: 30px;
+    line-height: 36px;
+    height: 66px;
+    width: 100%;
+    margin: 0;
+    transition: all 400ms ease-in-out; }
+    section h2 span {
+      color: #514761;
+      text-transform: uppercase;
+      text-shadow: none; }
   section p {
     font-size: 12px;
     text-transform: uppercase; }
@@ -49,13 +104,38 @@ section {
       text-decoration: none;
       opacity: 0.1; }
 
+#wrapper.off .voice-coder {
+  opacity: 0.20; }
+
+#wrapper.talking h2 {
+  opacity: 0.5; }
+
+#wrapper.talking button:focus, #wrapper.on:not([class*="talking"]) button:focus {
+  background: rgba(220, 20, 60, 0.25); }
+#wrapper.talking button:before, #wrapper.on:not([class*="talking"]) button:before {
+  animation: fader;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+  animation-duration: 900ms; }
+#wrapper.talking button:after, #wrapper.on:not([class*="talking"]) button:after {
+  content: "listening"; }
+
+#wrapper.on:not([class*="talking"]) button:focus {
+  background: rgba(220, 20, 60, 0.5); }
+#wrapper.on:not([class*="talking"]) button:after {
+  content: "recording"; }
+
 .voice-coder {
-  position: relative;
-  height: 65%;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 8px;
+  right: 8px;
   display: grid;
-  grid-template-columns: repeat(45, 4px);
+  grid-template-columns: repeat(54, 6px);
   grid-template-rows: 100%;
-  grid-gap: 14px;
+  grid-gap: 12px;
   justify-content: center;
   align-items: center;
   overflow: hidden; }
@@ -64,107 +144,9 @@ section {
     z-index: 2;
     width: 100%;
     height: 2px;
-    background: linear-gradient(#201c26 5%, purple, cyan, lime, cyan, purple, #201c26 85%);
-    animation: bounce-001;
-    animation-iteration-count: infinite;
-    animation-timing-function: ease-in;
-    animation-duration: 900ms; }
-    .voice-coder span:nth-child(1) {
-      animation-delay: 50ms; }
-    .voice-coder span:nth-child(2) {
-      animation-delay: 100ms; }
-    .voice-coder span:nth-child(3) {
-      animation-delay: 150ms; }
-    .voice-coder span:nth-child(4) {
-      animation-delay: 200ms; }
-    .voice-coder span:nth-child(5) {
-      animation-delay: 250ms; }
-    .voice-coder span:nth-child(6) {
-      animation-delay: 300ms; }
-    .voice-coder span:nth-child(7) {
-      animation-delay: 350ms; }
-    .voice-coder span:nth-child(8) {
-      animation-delay: 400ms; }
-    .voice-coder span:nth-child(9) {
-      animation-delay: 450ms; }
-    .voice-coder span:nth-child(10) {
-      animation-delay: 500ms; }
-    .voice-coder span:nth-child(11) {
-      animation-delay: 550ms; }
-    .voice-coder span:nth-child(12) {
-      animation-delay: 600ms; }
-    .voice-coder span:nth-child(13) {
-      animation-delay: 650ms; }
-    .voice-coder span:nth-child(14) {
-      animation-delay: 700ms; }
-    .voice-coder span:nth-child(15) {
-      animation-delay: 750ms; }
-    .voice-coder span:nth-child(16) {
-      animation-delay: 800ms; }
-    .voice-coder span:nth-child(17) {
-      animation-delay: 850ms; }
-    .voice-coder span:nth-child(18) {
-      animation-delay: 900ms; }
-    .voice-coder span:nth-child(19) {
-      animation-delay: 950ms; }
-    .voice-coder span:nth-child(20) {
-      animation-delay: 1000ms; }
-    .voice-coder span:nth-child(21) {
-      animation-delay: 1050ms; }
-    .voice-coder span:nth-child(22) {
-      animation-delay: 1100ms; }
-    .voice-coder span:nth-child(23) {
-      animation-delay: 1150ms; }
-    .voice-coder span:nth-child(24) {
-      animation-delay: 1200ms; }
-    .voice-coder span:nth-child(25) {
-      animation-delay: 1250ms; }
-    .voice-coder span:nth-child(26) {
-      animation-delay: 1300ms; }
-    .voice-coder span:nth-child(27) {
-      animation-delay: 1350ms; }
-    .voice-coder span:nth-child(28) {
-      animation-delay: 1400ms; }
-    .voice-coder span:nth-child(29) {
-      animation-delay: 1450ms; }
-    .voice-coder span:nth-child(30) {
-      animation-delay: 1500ms; }
-    .voice-coder span:nth-child(31) {
-      animation-delay: 1550ms; }
-    .voice-coder span:nth-child(32) {
-      animation-delay: 1600ms; }
-    .voice-coder span:nth-child(33) {
-      animation-delay: 1650ms; }
-    .voice-coder span:nth-child(34) {
-      animation-delay: 1700ms; }
-    .voice-coder span:nth-child(35) {
-      animation-delay: 1750ms; }
-    .voice-coder span:nth-child(36) {
-      animation-delay: 1800ms; }
-    .voice-coder span:nth-child(37) {
-      animation-delay: 1850ms; }
-    .voice-coder span:nth-child(38) {
-      animation-delay: 1900ms; }
-    .voice-coder span:nth-child(39) {
-      animation-delay: 1950ms; }
-    .voice-coder span:nth-child(40) {
-      animation-delay: 2000ms; }
-    .voice-coder span:nth-child(41) {
-      animation-delay: 2050ms; }
-    .voice-coder span:nth-child(42) {
-      animation-delay: 2100ms; }
-    .voice-coder span:nth-child(43) {
-      animation-delay: 2150ms; }
-    .voice-coder span:nth-child(44) {
-      animation-delay: 2200ms; }
-    .voice-coder span:nth-child(45) {
-      animation-delay: 2250ms; }
-    .voice-coder span:nth-child(2n) {
-      animation-name: bounce-002;
-      animation-timing-function: ease-out; }
-    .voice-coder span:nth-child(3n) {
-      animation-name: bounce-003;
-      animation-timing-function: linear; }
+    background: linear-gradient(#201c26 10%, purple, cyan, lime, cyan, purple, #201c26 80%);
+    transition: all 160ms cubic-bezier(0.64, 0.57, 0.67, 1.53);
+    border-radius: 80px; }
   .voice-coder:after {
     position: absolute;
     z-index: 3;
@@ -176,26 +158,11 @@ section {
     opacity: 0.25;
     background: url("overlay.png") no-repeat 50% 50%; }
 
-@keyframes bounce-001 {
+@keyframes fader {
   0% {
-    height: 100%; }
-  50% {
-    height: 50%; }
+    transform: scale(1); }
   100% {
-    height: 100%; } }
-@keyframes bounce-002 {
-  0% {
-    height: 100%; }
-  80% {
-    height: 30%; }
-  100% {
-    height: 100%; } }
-@keyframes bounce-003 {
-  0% {
-    height: 80%; }
-  30% {
-    height: 20%; }
-  100% {
-    height: 80%; } }
+    transform: scale(1.3);
+    opacity: 0; } }
 
 /*# sourceMappingURL=styles.css.map */

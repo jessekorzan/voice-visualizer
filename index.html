@@ -6,8 +6,16 @@
     </head>
     <body>
         <main>
-            <section>
-                <h1><span  id="timerMins">00</span>:<span  id="timerSeconds">00</span>:<span  id="timerTens">00</span></h1>
+            <section id="wrapper" class="off">
+                <button id="record_me"></button>
+                <div style="position: relative; z-index: 1;">
+                    
+                    <h1 id="message">voice interface</h1>
+                    <!--                 
+                        <h1 id="message"><span  id="timerMins">00</span>:<span  id="timerSeconds">00</span>:<span  id="timerTens">00</span></h1> 
+                    -->
+                    <h2 id="output">Microphone check 1 2 1 2</h2>
+                </div>
                 <div class="voice-coder">
                     <!-- 45 spans inside the main .voice-coder wrapper -->
                     <span></span>
@@ -55,55 +63,154 @@
                     <span></span>
                     <span></span>
                     <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
                     
                 </div>
-                <p><a href="https://dribbble.com/jessekorzan">@jessekorzan</a></p>
             </section>
         </main>
+        
         <script>
+            // VOICE API
             
-            // simple JS I re-purposed from some place on Stackoverflow
-            // not essential for the CSS POC
+            var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition,
+                SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList,
+                SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
             
-            var interval = setInterval(timerFunc, 10),
-                mins = 00,
-                seconds = 00,
-                tens = 00,
-                tensEl = document.getElementById("timerTens"),
-                secondsEl = document.getElementById("timerSeconds"),
-                minsEl = document.getElementById("timerMins");
+            var recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
             
-            function timerFunc() {
-                console.log("hi");
-                tens++;
-                if (tens < 9) {
-                    tensEl.innerHTML = "0" + tens;
-                }       
-                if (tens > 9) {
-                    tensEl.innerHTML = tens;
-                } 
-                if (tens > 99) {
-                    seconds++;
-                    secondsEl.innerHTML = "0" + seconds;
-                    tens = 0;
-                    tensEl.innerHTML = "0" + 0;
+            var final_transcript = '',
+                running = false,
+                wrapper = document.getElementById("wrapper"),
+                output = document.getElementById("output"),
+                spans = document.getElementsByTagName("span"),
+                interval = "",
+                bars = 45, // number of spans
+                fxFactor = 0;
+                
+            var synth = window.speechSynthesis,
+                voices = window.speechSynthesis.getVoices(),
+                str = output.textContent;
+             
+            speak(str);
+            
+            function speak(str) {
+                var utterThis = new SpeechSynthesisUtterance(str);
+                utterThis.lang = "en-GB";
+                synth.speak(utterThis);
+            }
+            
+            function audioFX(stream) {
+                var context = new AudioContext(),
+                    source = context.createMediaStreamSource(stream),
+                    analyser = context.createAnalyser();
+                
+                source.connect(analyser);
+ 
+                var frequencyData = new Float32Array(256);
+                
+                function animate() {
+                    drawVisual = requestAnimationFrame(animate);
+                    analyser.getFloatTimeDomainData(frequencyData);
+                    for(var i = 0; i < 54; i++) {
+                        var _val = (Math.abs(frequencyData[i] * 200));
+                        
+                        spans[i].style.height = (_val) + "%";
+                        console.log(_val);
+                    }
                 }
-                if (seconds < 9) {
-                    secondsEl.innerHTML = "0" + seconds;
+                animate();
+            }
+            navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(audioFX);
+            
+            recognition.onresult = function(event) {
+                var interim_transcript = '',
+                    audioFile = '';
+
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    
+                    if (event.results[i].isFinal) {
+                        final_transcript = event.results[i][0].transcript;
+                        output.innerHTML = final_transcript;
+                        
+                        stop(final_transcript);
+                        running = false;
+                        
+                    } else {
+                        interim_transcript += event.results[i][0].transcript;
+                    }
                 }
-                if (seconds > 9) {
-                    secondsEl.innerHTML = seconds;
-                }
-                if (seconds > 59) {
-                    secondsEl.innerHTML = 00;
-                    seconds = 00;
-                    mins++;
-                    minsEl.innerHTML = mins;
-                }
-                if (mins < 9) {
-                    minsEl.innerHTML = "0" + mins;
+                
+                final_transcript = "";
+            }
+            recognition.onsoundstart = function() {
+                wrapper.classList.add('talking');
+                output.innerHTML = "<span>listening</span>";
+            }
+            recognition.onsoundend = function() {
+                wrapper.classList.remove('talking');
+            }
+            recognition.onstart = function(event) {
+                wrapper.classList.remove('off');
+                wrapper.classList.add('on');
+            }
+            recognition.onnomatch = function(event) {
+                console.log("no words");
+            }
+            recognition.onerror = function(event) {
+                console.log(event);
+            }
+            
+            // trigger this thing
+            var button = document.getElementById("record_me");
+            
+            function run() {
+                var startPhrase = "<span>speak your mind</span>"
+                output.innerHTML = startPhrase;
+                //speak(startPhrase);
+                
+                recognition.start();
+                
+            }
+            function stop(str) {
+                recognition.stop();
+                process(str);
+                wrapper.classList.remove('on');
+                wrapper.classList.add('off');
+                
+                clearInterval(interval);
+            }
+            button.onclick = function() {
+                running = !running;
+                if (running) {
+                    run();
+                } else {
+                    recognition.stop();
+                    wrapper.classList.remove('talking');
+                    wrapper.classList.remove('on');
+                    wrapper.classList.add('off');
+                    output.innerHTML = "Press go";
+                    clearInterval(interval);
                 }
             }
+            
+            function process(str) {
+                speak("Ha ha ha. Too funny, you just said " + str + " ");
+                
+                //speak("I am terribly sorry but we have zero matches in our databases.")
+            } 
+            
         </script>
     </body>
 </html>
