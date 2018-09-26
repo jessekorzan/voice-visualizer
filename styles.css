@@ -10,10 +10,13 @@ body {
   color: #ffffff;
   font-family: sans-serif;
   font-size: 16px; }
+  @media screen and (max-width: 1020px) {
+    body {
+      background: #201c26; } }
 
 main {
   position: relative;
-  width: 800px;
+  max-width: 800px;
   margin: 0 auto;
   display: grid;
   align-items: center;
@@ -24,7 +27,8 @@ main {
     padding: 44px;
     white-space: 100%;
     height: 600px;
-    width: 800px; }
+    max-width: 800px;
+    overflow: hidden; }
 
 section {
   text-align: center; }
@@ -171,15 +175,6 @@ section {
     bottom: 0;
     opacity: 0.25;
     background: url("overlay.png") no-repeat 50% 50%; }
-  .voice-coder:before {
-    position: absolute;
-    top: 20%;
-    left: -15%;
-    right: -15%;
-    bottom: 20%;
-    background: radial-gradient(lime, cyan, purple, #201c26 55%);
-    transform: scale(0.5);
-    opacity: 0.2; }
 
 @keyframes bounce-001 {
   0% {
