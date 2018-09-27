@@ -10,5 +10,8 @@ https://voice-visualizer-001.netlify.com/
 
 https://voice-visualizer-002.netlify.com/
 
+https://voice-interface-001.netlify.com/
+
+https://voice-interface-002.netlify.com/
 
 ![demo](https://github.com/jessekorzan/voice-visualizer/blob/master/example.gif)
